@@ -38,14 +38,14 @@ This project demonstrates Full vs Incremental Extraction in an ETL pipeline usin
 
 # Extraction Methods
 ## Full Extraction
-Pulls all rows from the dataset
-Easy to implement
-Slower on large datasets
+Pulls all rows from the dataset,
+Easy to implement,
+Slower on large datasets,
 Ideal for small or test data
 
 ## Incremental Extraction
-Pulls only new/updated rows
-Requires tracking with a timestamp
-Much faster and efficient
+Pulls only new/updated rows,
+Requires tracking with a timestamp,
+Much faster and efficient,
 Used in production ETL workflows
 
