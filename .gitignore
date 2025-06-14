@@ -4,3 +4,4 @@ __pycache__/
 *.sqlite
 last_extraction.txt
 transformed_*.csv
+
