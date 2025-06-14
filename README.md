@@ -56,3 +56,15 @@ Requires tracking with a timestamp,
 Much faster and efficient,
 Used in production ETL workflows
 
+ ## Lab 4: Transformation Steps
+
+This lab builds on Lab 3 by applying transformation logic to the ETL pipeline.
+
+### Applied Transformations:
+1. **Cleaning**: Removed duplicate records from both datasets.
+2. **Enrichment**: Added a `session_duration_minutes` column.
+3. **Structural**: Standardized `user_id` to uppercase format.
+
+### Files Generated:
+- `transformed_full.csv`
+- `transformed_incremental.csv`

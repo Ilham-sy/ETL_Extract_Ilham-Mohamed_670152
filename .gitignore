@@ -1,5 +1,6 @@
-.ipynb_checkpoints/ 
-__pycache__/ 
-*.log 
-*.sqlite 
-last_extraction.txt 
+.ipynb_checkpoints/
+__pycache__/
+*.log
+*.sqlite
+last_extraction.txt
+transformed_*.csv
