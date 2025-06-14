@@ -8,8 +8,8 @@ Ilham Mohamed
 This project demonstrates Full vs Incremental Extraction in an ETL pipeline using a synthetic sales dataset. The notebook simulates 50 sales records and extracts data accordingly.
 
 ## Structure
-data.ipynb # My Jupyter notebook
-custom_data.csv # My generated dataset
+etl_extract.ipynb # My Jupyter notebook
+user_sessions.csv # My generated dataset
 last_extraction.txt # for incremental extraction
 .gitignore # To exclude unneeded files
 README.md # To explain my project
@@ -33,7 +33,7 @@ README.md # To explain my project
    jupyter notebook etl_extract.ipynb
    ```
 5. The notebook:
-   - Generates `custom_data.csv` (50 rows of data)
+   - Generates `user_sessions.csv` (50 rows of data)
    - Performs Full Extraction
    - Performs Incremental Extraction using `last_extraction.txt`
 
