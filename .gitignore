@@ -3,5 +3,3 @@ __pycache__/
 *.log
 *.sqlite
 last_extraction.txt
-transformed_*.csv
-
