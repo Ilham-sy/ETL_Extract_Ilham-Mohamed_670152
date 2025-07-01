@@ -59,12 +59,92 @@ Used in production ETL workflows
  ## Lab 4: Transformation Steps
 
 This lab builds on Lab 3 by applying transformation logic to the ETL pipeline.
+This notebook demonstrates how to transform the extracted data by cleaning, enriching, and structuring it for further analysis or loading into a database.  
+### Transformation Steps:
+1. **Cleaning**: Remove duplicate records from both datasets.  
+2. **Enrichment**: Add a `session_duration_minutes` column to both datasets.
+3. **Structural**: Standardize `user_id` to uppercase format.  
 
-### Applied Transformations:
-1. **Cleaning**: Removed duplicate records from both datasets.
-2. **Enrichment**: Added a `session_duration_minutes` column.
-3. **Structural**: Standardized `user_id` to uppercase format.
+
 
 ### Files Generated:
 - `transformed_full.csv`
 - `transformed_incremental.csv`
+
+## Lab 5 – Load
+# ETL Load Lab 
+This lab builds on the previous transformation steps by loading the transformed data into SQLite databases. 
+The notebook demonstrates how to load both full and incremental datasets into separate SQLite databases, allowing for efficient data management and querying.
+
+### Loading Method Used:
+SQLite database files for both full and incremental datasets.  
+
+### Steps:
+1. Loaded `transformed_full.csv` into `full_data.db`. 
+2. Loaded `transformed_incremental.csv` into `incremental_data.db`.
+3. Displayed a sample of the loaded data.
+
+```python
+import pandas as pd  
+import sqlite3
+from pathlib import Path
+# Load transformed data into SQLite database 
+output_dir = Path("output")
+output_dir.mkdir(exist_ok=True)  
+df_full = pd.read_csv(output_dir / "transformed_full.csv")
+df_incremental = pd.read_csv(output_dir / "transformed_incremental.csv")
+
+# Load full transformed data into SQLite database
+conn_full = sqlite3.connect(output_dir / "full_data.db")
+df_full.to_sql("full_data", conn_full, if_exists="replace", index=False)
+conn_full.close()
+
+# Load incremental transformed data into SQLite database
+conn_incremental = sqlite3.connect(output_dir / "incremental_data.db")
+df_incremental.to_sql("incremental_data", conn_incremental, if_exists="replace", index=False)
+conn_incremental.close()
+
+# Display a sample of the loaded data
+conn_full = sqlite3.connect(output_dir / "full_data.db")    
+print("Full Data Sample:")
+display(pd.read_sql("SELECT * FROM full_data LIMIT 5", conn_full))
+conn_incremental = sqlite3.connect(output_dir / "incremental_data.db")
+print("Incremental Data Sample:")      
+display(pd.read_sql("SELECT * FROM incremental_data LIMIT 5", conn_incremental))
+```      
+
+### Sample Table Schema (incremental_data):
+```sql      
+CREATE TABLE incremental_data (
+    session_id TEXT PRIMARY KEY,
+    user_id TEXT,
+    device_type TEXT,
+    start_time TEXT,
+    end_time TEXT,
+    session_duration_minutes REAL
+);
+```
+
+### Sample Table Schema (full_data):
+```sql
+CREATE TABLE full_data (
+    session_id TEXT PRIMARY KEY,
+    user_id TEXT,
+    device_type TEXT,
+    start_time TEXT,
+    end_time TEXT,
+    session_duration_minutes REAL
+);
+```
+
+### Sample Data
+```sql   
+SELECT * FROM full_data LIMIT 5;
+SELECT * FROM incremental_data LIMIT 5;         
+```   
+
+### Conclusion
+This lab successfully demonstrates the loading of transformed data into SQLite databases, showcasing both full and incremental datasets and their respective schemas. The use of SQLite allows for efficient querying and management of the data, making it suitable for further analysis or reporting.  
+
+
+
